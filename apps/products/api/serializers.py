@@ -9,7 +9,7 @@ class CategorySerializer(serializers.ModelSerializer):
             "name",
             "slug", 
             "description",
-            "image"
+            "images"
         ]
 
 class BrandSerializer(serializers.ModelSerializer):

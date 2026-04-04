@@ -7,7 +7,7 @@ class CategoryQuerySet(models.QuerySet):
 
 
 
-class CategoryManager(models.Model):
+class CategoryManager(models.Manager):
     def get_queryset(self):
         return CategoryQuerySet(self.model, using=self._db).filter(is_deleted=False)
 
@@ -46,7 +46,7 @@ class ProductQuerySet(models.QuerySet):
 
 class ProductManager(models.Manager):
     def get_queryset(self) -> models.QuerySet:
-        return ProductManager(self.model, using=self._db).filter(is_deleted=False)
+        return ProductQuerySet(self.model, using=self._db).filter(is_deleted=False)
 
     def active(self):
         return self.get_queryset().active()
