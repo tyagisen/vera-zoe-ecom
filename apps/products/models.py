@@ -150,7 +150,7 @@ class ProductVariant(BaseModel):
 
     
     def clean(self):
-        if self.price_override is not None and self.price_overrride < Decimal("0.00"):
+        if self.price_override is not None and self.price_override < Decimal("0.00"):
             raise ValidationError("Price override cannot be negative.")
 
     @property

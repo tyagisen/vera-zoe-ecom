@@ -19,6 +19,12 @@ class ProductVariantInline(admin.TabularInline):
     model = ProductVariant
     extra = 1
 
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display=["name", "slug", "created_at"]
+    list_filter = ("active", "is_deleted")
+    search_fields=("name", "slug")
+    prepopulated_fields={"slug":("name",)}
 
 
 """
