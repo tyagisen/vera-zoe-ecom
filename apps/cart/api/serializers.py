@@ -23,6 +23,10 @@ class CartItemSerializer(serializers.ModelSerializer):
             "total_price"
         ]
     
+class AddToCartSerializer(serializers.Serializer):
+    variant_id = serializers.IntegerField()
+    quantity = serializers.IntegerField(default=1, min_value=1)
+
 
 class CartSerializer(serializers.ModelSerializer):
     items= CartItemSerializer(many=True, read_only=True)

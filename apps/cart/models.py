@@ -24,11 +24,11 @@ class CartItem(BaseModel):
 
 
     class Meta:
-        uniqu_together= ("cart", "variant")
+        unique_together= ("cart", "variant")
 
     def __str__(self):
         return f"{self.variant} * {self.quantity}"
 
     @property
     def total_price(self):
-        return self.quantity*self.variant.final_price
+        return self.quantity * self.variant.final_price
