@@ -16,8 +16,8 @@ def create_order_from_cart(*, user, address_id):
         Cart.objects.select_related("user")
         .prefetch_related("items__variant__product")
     }
-    cart_item = list(cart.items.all())
-    if not cart_item:
+    cart_items = list(cart.items.all())
+    if not cart_items:
         raise ValidationError({"cart":"Cart is Empty"})
     subtotal = Decimal("0.00")
     order = Order.objects.create(
@@ -30,7 +30,7 @@ def create_order_from_cart(*, user, address_id):
         total = Decimal("0.00"),
     )
     order_items = []
-    for cart_item in cart_item:
+    for cart_item in cart_items:
         variant = cart_item.variant
 
         if not variant.is_active:

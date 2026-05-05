@@ -9,7 +9,7 @@ from .choices import StatusChoices, PaymentStatusChoices
 User = settings.AUTH_USER_MODEL
 
 class Address(BaseModel):
-    user = models.ForeginKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
     address_line_1 = models.CharField(max_length=255)
@@ -21,14 +21,15 @@ class Address(BaseModel):
     is_default = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["-is_defualt", "-created_at"]
+        ordering = ["-is_default", "-created_at"]
 
     def __str__(self):
         return f"{self.full_name} - {self.address_line_1}, {self.city}"
 
-class Order(models.Model):
+class Order(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     address = models.ForeignKey(Address, on_delete=models.PROTECT, related_name="orders")
+    order_number = models.CharField(max_length=30, unique=True)
     status = models.CharField(max_length=20, choices = StatusChoices.choices, default=StatusChoices.PENDING)
     payment_status = models.CharField(max_length=20, choices = PaymentStatusChoices.choices, default=PaymentStatusChoices.UNPAID)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0.00"))
