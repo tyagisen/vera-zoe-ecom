@@ -35,7 +35,7 @@ class OrderItemSerailizer(serializers.ModelSerializer):
         ]
     
 
-class OrderSerailizer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerailizer(many=True, read_only=True)
     address = AddressSerializer(read_only=True)
 
