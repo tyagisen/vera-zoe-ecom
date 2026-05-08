@@ -2,10 +2,10 @@ from django.db import models
 from decimal import Decimal
 from apps.common.models import BaseModel
 from apps.orders.models import Order
-from .choices import PaymentMethodChoices, ProviderChoices, StatusChoices
 
 
 class Payment(BaseModel):
+    from .choices import PaymentMethodChoices, ProviderChoices, StatusChoices
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="payment")
     payment_method = models.CharField(max_length=30, choices=PaymentMethodChoices.choices,default= PaymentMethodChoices.CARD)
     provider = models.CharField(max_length=30, choices = ProviderChoices.choices, default=ProviderChoices.MANUAL)

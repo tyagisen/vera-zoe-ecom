@@ -14,7 +14,7 @@ class Category(SoftDeleteModel, BaseModel):
     slug = models.SlugField(max_length=140, unique = True)
     description = models.TextField(blank=True)
 
-    images = models.ImageField(upload_to="categories/", blank=True, null=True)
+    images = models.ImageField(upload_to="images/categories/", blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     objects = CategoryManager()
@@ -40,7 +40,7 @@ class Brand(BaseModel, SoftDeleteModel):
     name = models.CharField(max_length=120, unique=True)
     slug= models.SlugField(max_length=140, unique=True)
     description = models.TextField(blank=True)
-    logo = models.ImageField(upload_to="brands/", blank=True, null=True)
+    logo = models.ImageField(upload_to="images/brands/", blank=True, null=True)
 
     active = models.BooleanField(default=True)
 
@@ -71,7 +71,7 @@ class Product(BaseModel, SoftDeleteModel):
     is_active = models.BooleanField(default=True)
     is_available = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
-    main_image = models.ImageField(upload_to="products/main/", blank=True, null=True)
+    main_image = models.ImageField(upload_to="images/products/main/", blank=True, null=True)
 
     objects = ProductManager()
     all_objects = models.Manager()
@@ -115,7 +115,7 @@ class Product(BaseModel, SoftDeleteModel):
 
 class ProductImage(BaseModel):
     product = models.ForeignKey(Product, on_delete= models.CASCADE, related_name="images")
-    images = models.ImageField(upload_to="product/gallery")
+    images = models.ImageField(upload_to="images/product/gallery")
     alt_text = models.CharField(max_length=255, blank=True)
     is_primary = models.BooleanField(default=False)
     display_order = models.PositiveIntegerField(default=0)
